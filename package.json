@@ -1,6 +1,6 @@
 {
   "name": "markdown-reader-pro",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A professional, cross-platform markdown reader built with Electron featuring modern UI/UX, syntax highlighting, and advanced features",
   "main": "main.js",
   "scripts": {
