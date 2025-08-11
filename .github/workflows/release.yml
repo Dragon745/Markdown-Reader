@@ -36,7 +36,7 @@ jobs:
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.include.artifact-name }}
+          name: ${{ matrix.artifact-name }}
           path: |
             dist/*.exe
             dist/*.blockmap
