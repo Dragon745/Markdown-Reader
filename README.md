@@ -253,6 +253,6 @@ The MIT License is one of the most permissive open-source licenses, allowing:
 ---
 
 <div align="center">
-  <p><strong>Made with ❤️ by the Markdown Reader Pro Team</strong></p>
+  <p><strong>Made with ❤️ by the Syed Qutubudddin B Asadi</strong></p>
   <p>If this project helps you, please consider giving it a ⭐️</p>
 </div>
