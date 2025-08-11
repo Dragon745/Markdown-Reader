@@ -41,6 +41,7 @@ jobs:
             dist/*.exe
             dist/*.blockmap
             dist/win-*/
+          if-no-files-found: warn
 
   release:
     needs: build
@@ -63,7 +64,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifacts/**/*.exe
+            artifacts/**/Markdown Reader Pro*.exe
             artifacts/**/*.blockmap
           generate_release_notes: true
           draft: false
