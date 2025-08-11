@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown Reader</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-content">
+          <h1 class="app-title">
+            <svg class="app-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+              />
+            </svg>
+            Markdown Reader
+          </h1>
+          <div class="file-info" id="fileInfo" style="display: none">
+            <span class="file-name" id="fileName"></span>
+            <span class="file-size" id="fileSize"></span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="openFileBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"
+              />
+            </svg>
+            Open File
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Drop Zone -->
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-zone-content">
+            <svg class="drop-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+              />
+            </svg>
+            <h2>Drop your markdown file here</h2>
+            <p>Or click the "Open File" button to browse</p>
+            <p class="supported-formats">Supported formats: .md, .markdown</p>
+          </div>
+        </div>
+
+        <!-- Markdown Content -->
+        <div
+          class="markdown-container"
+          id="markdownContainer"
+          style="display: none"
+        >
+          <div class="markdown-content" id="markdownContent"></div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState" style="display: none">
+          <div class="spinner"></div>
+          <p>Loading markdown file...</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" id="errorState" style="display: none">
+          <svg class="error-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,17H11V15H13V17M13,13H11V7H13V13Z"
+            />
+          </svg>
+          <h3>Error loading file</h3>
+          <p id="errorMessage"></p>
+          <button class="btn btn-primary" onclick="resetApp()">
+            Try Again
+          </button>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <span>Markdown Reader v1.0.0</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="renderer.js"></script>
+  </body>
+</html>
