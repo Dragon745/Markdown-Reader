@@ -3,34 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Markdown Reader</title>
+    <meta
+      name="description"
+      content="Professional Markdown Reader - A powerful desktop application for reading and viewing markdown files with syntax highlighting and modern UI."
+    />
+    <title>Markdown Reader Pro</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
     />
   </head>
   <body>
     <div class="app-container">
       <!-- Header -->
-      <header class="app-header">
+      <header class="app-header" role="banner">
         <div class="header-content">
-          <h1 class="app-title">
-            <svg class="app-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
-              />
-            </svg>
-            Markdown Reader
-          </h1>
-          <div class="file-info" id="fileInfo" style="display: none">
-            <span class="file-name" id="fileName"></span>
-            <span class="file-size" id="fileSize"></span>
+          <div class="brand-section">
+            <h1 class="app-title">
+              <svg
+                class="app-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+                />
+              </svg>
+              <span>Markdown Reader Pro</span>
+            </h1>
+            <!-- Subtitle removed for cleaner header -->
+          </div>
+
+          <div
+            class="file-info"
+            id="fileInfo"
+            style="display: none"
+            role="status"
+            aria-live="polite"
+          >
+            <div class="file-details">
+              <span class="file-name" id="fileName"></span>
+              <span class="file-size" id="fileSize"></span>
+              <span class="file-path" id="filePath"></span>
+            </div>
+            <div class="file-actions">
+              <button
+                class="btn btn-secondary btn-sm"
+                id="copyPathBtn"
+                title="Copy file path"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M16,1H4A1,1 0 0,0 3,2V17A1,1 0 0,0 4,18H5V20A1,1 0 0,0 6,21H20A1,1 0 0,0 21,20V6A1,1 0 0,0 20,5H18V2A1,1 0 0,0 17,1H16M6,17V2H15V5H18V17H6Z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="btn btn-secondary btn-sm"
+                id="reloadFileBtn"
+                title="Reload file"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
+
         <div class="header-actions">
-          <button class="btn btn-primary" id="openFileBtn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
+          <button class="btn btn-secondary" id="settingsBtn" title="Settings">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"
+              />
+            </svg>
+          </button>
+          <button
+            class="btn btn-primary"
+            id="openFileBtn"
+            title="Open Markdown File (Ctrl+O)"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
                 d="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"
               />
@@ -41,18 +105,41 @@
       </header>
 
       <!-- Main Content -->
-      <main class="main-content">
+      <main class="main-content" role="main">
         <!-- Drop Zone -->
-        <div class="drop-zone" id="dropZone">
+        <div
+          class="drop-zone"
+          id="dropZone"
+          role="button"
+          tabindex="0"
+          aria-label="Drop markdown file here or click to browse"
+        >
           <div class="drop-zone-content">
-            <svg class="drop-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
-              />
-            </svg>
+            <div class="drop-zone-icon">
+              <svg
+                class="drop-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+                />
+              </svg>
+            </div>
             <h2>Drop your markdown file here</h2>
-            <p>Or click the "Open File" button to browse</p>
-            <p class="supported-formats">Supported formats: .md, .markdown</p>
+            <p>Or click to browse and select a markdown file</p>
+            <div class="supported-formats">
+              <span class="format-badge">.md</span>
+              <span class="format-badge">.markdown</span>
+              <span class="format-badge">.txt</span>
+            </div>
+            <div class="drop-zone-hint">
+              <p>Supports drag & drop, file browsing, and keyboard shortcuts</p>
+              <p class="shortcut-hint">
+                Press <kbd>Ctrl+O</kbd> to open a file
+              </p>
+            </div>
           </div>
         </div>
 
@@ -61,37 +148,249 @@
           class="markdown-container"
           id="markdownContainer"
           style="display: none"
+          role="article"
         >
+          <div class="markdown-header">
+            <div class="markdown-controls">
+              <button
+                class="btn btn-secondary btn-sm"
+                id="toggleThemeBtn"
+                title="Toggle theme"
+              >
+                <svg
+                  class="theme-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M12,22L9.61,18.58C10.35,18.85 11.16,19 12,19C12.84,19 13.65,18.85 14.39,18.58L12,22M2,12L5.42,14.39C5.15,13.65 5,12.84 5,12C5,11.16 5.15,10.35 5.42,9.61L2,12M22,12L18.58,9.61C18.85,10.35 19,11.16 19,12C19,12.84 18.85,13.65 18.58,14.39L22,12Z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="btn btn-secondary btn-sm"
+                id="printBtn"
+                title="Print document"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8M16,19H8V17H16V19M19,12A1,1 0 0,1 18,13A1,1 0 0,1 17,12A1,1 0 0,1 18,11A1,1 0 0,1 19,12M16,15H8V13H16V15Z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="btn btn-secondary btn-sm"
+                id="exportBtn"
+                title="Export as HTML"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M16,18H8V16H16V18M16,14H8V12H16V14M16,10H8V8H16V10Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
           <div class="markdown-content" id="markdownContent"></div>
         </div>
 
         <!-- Loading State -->
-        <div class="loading-state" id="loadingState" style="display: none">
-          <div class="spinner"></div>
-          <p>Loading markdown file...</p>
+        <div
+          class="loading-state"
+          id="loadingState"
+          style="display: none"
+          role="status"
+          aria-live="polite"
+        >
+          <div class="loading-content">
+            <div class="spinner"></div>
+            <h3>Loading markdown file...</h3>
+            <p>Please wait while we process your document</p>
+          </div>
         </div>
 
         <!-- Error State -->
-        <div class="error-state" id="errorState" style="display: none">
-          <svg class="error-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,17H11V15H13V17M13,13H11V7H13V13Z"
-            />
-          </svg>
-          <h3>Error loading file</h3>
-          <p id="errorMessage"></p>
-          <button class="btn btn-primary" onclick="resetApp()">
-            Try Again
-          </button>
+        <div
+          class="error-state"
+          id="errorState"
+          style="display: none"
+          role="alert"
+        >
+          <div class="error-content">
+            <svg
+              class="error-icon"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,17H11V15H13V17M13,13H11V7H13V13Z"
+              />
+            </svg>
+            <h3>Error loading file</h3>
+            <p id="errorMessage"></p>
+            <div class="error-actions">
+              <button class="btn btn-primary" onclick="resetApp()">
+                Try Again
+              </button>
+              <button class="btn btn-secondary" onclick="resetApp()">
+                Open Different File
+              </button>
+            </div>
+          </div>
         </div>
       </main>
 
       <!-- Footer -->
-      <footer class="app-footer">
+      <footer class="app-footer" role="contentinfo">
         <div class="footer-content">
-          <span>Markdown Reader v1.0.0</span>
+          <div class="footer-left">
+            <span class="app-version">Markdown Reader Pro v1.0.0</span>
+            <span class="footer-separator">•</span>
+            <span class="app-status" id="appStatus">Ready</span>
+          </div>
+          <div class="footer-right">
+            <button
+              class="btn btn-link btn-sm"
+              id="helpBtn"
+              title="Help & Documentation"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,19H11V17H13V19M15.07,11.25L14.17,12.17C13.45,12.9 13,13.5 13,15H11V14.5C11,13.4 11.45,12.4 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.9 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.68 15.07,11.25Z"
+                />
+              </svg>
+              Help
+            </button>
+          </div>
         </div>
       </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div
+      class="modal-overlay"
+      id="settingsModal"
+      style="display: none"
+      role="dialog"
+      aria-labelledby="settingsTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="settingsTitle">Settings</h2>
+          <button
+            class="modal-close"
+            id="closeSettingsBtn"
+            aria-label="Close settings"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="setting-group">
+            <label for="themeSelect">Theme:</label>
+            <select id="themeSelect" class="setting-control">
+              <option value="auto">Auto (System)</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          <div class="setting-group">
+            <label for="fontSizeSelect">Font Size:</label>
+            <select id="fontSizeSelect" class="setting-control">
+              <option value="small">Small</option>
+              <option value="medium" selected>Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          <div class="setting-group">
+            <label for="lineHeightSelect">Line Height:</label>
+            <select id="lineHeightSelect" class="setting-control">
+              <option value="tight">Tight</option>
+              <option value="normal" selected>Normal</option>
+              <option value="relaxed">Relaxed</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="resetSettingsBtn">
+            Reset to Defaults
+          </button>
+          <button class="btn btn-primary" id="saveSettingsBtn">
+            Save Settings
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div
+      class="modal-overlay"
+      id="helpModal"
+      style="display: none"
+      role="dialog"
+      aria-labelledby="helpTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="helpTitle">Help & Shortcuts</h2>
+          <button class="modal-close" id="closeHelpBtn" aria-label="Close help">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="help-section">
+            <h3>Keyboard Shortcuts</h3>
+            <div class="shortcut-list">
+              <div class="shortcut-item">
+                <kbd>Ctrl+O</kbd>
+                <span>Open file</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>Ctrl+Shift+O</kbd>
+                <span>Open recent files</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>Ctrl+P</kbd>
+                <span>Print document</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>Ctrl+S</kbd>
+                <span>Save as HTML</span>
+              </div>
+              <div class="shortcut-item">
+                <kbd>Escape</kbd>
+                <span>Reset to file selection</span>
+              </div>
+            </div>
+          </div>
+          <div class="help-section">
+            <h3>Features</h3>
+            <ul class="feature-list">
+              <li>Drag & drop markdown files</li>
+              <li>Syntax highlighting for code blocks</li>
+              <li>Multiple themes (Light/Dark/Auto)</li>
+              <li>Responsive design for all screen sizes</li>
+              <li>Print and export functionality</li>
+              <li>Keyboard shortcuts for power users</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="closeHelpBtn2">Got it!</button>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>

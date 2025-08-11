@@ -5,8 +5,6 @@ const fs = require('fs');
 let mainWindow;
 
 function createWindow() {
-    console.log('Main process: Creating main window...');
-
     mainWindow = new BrowserWindow({
         width: 1200,
         height: 800,
@@ -20,23 +18,18 @@ function createWindow() {
         show: false
     });
 
-    console.log('Main process: Main window created, loading index.html...');
-
     mainWindow.loadFile('index.html');
 
     mainWindow.once('ready-to-show', () => {
-        console.log('Main process: Main window ready to show');
         mainWindow.show();
     });
 
     mainWindow.on('closed', () => {
-        console.log('Main process: Main window closed');
         mainWindow = null;
     });
 
     // Open DevTools in development
     if (process.argv.includes('--dev')) {
-        console.log('Main process: Opening DevTools for development');
         mainWindow.webContents.openDevTools();
     }
 
@@ -140,12 +133,10 @@ function createMenu() {
 
 // App lifecycle events
 app.whenReady().then(() => {
-    console.log('Main process: App is ready, creating window and menu...');
     createWindow();
     createMenu();
 
     app.on('activate', () => {
-        console.log('Main process: App activated');
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
         }
@@ -153,22 +144,19 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
-    console.log('Main process: All windows closed, quitting app...');
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
 app.on('before-quit', () => {
-    console.log('Main process: App is quitting...');
+    // Clean up before quitting
 });
 
 // IPC handlers
 ipcMain.handle('read-file', async (event, filePath) => {
-    console.log('Main process: Reading file:', filePath);
     try {
         const content = await fs.promises.readFile(filePath, 'utf8');
-        console.log('Main process: File read successfully, size:', content.length);
         return { success: true, content };
     } catch (error) {
         console.error('Main process: Error reading file:', error);
@@ -177,14 +165,12 @@ ipcMain.handle('read-file', async (event, filePath) => {
 });
 
 ipcMain.handle('get-file-info', async (event, filePath) => {
-    console.log('Main process: Getting file info:', filePath);
     try {
         const stats = await fs.promises.stat(filePath);
         const fileName = path.basename(filePath);
         const fileSize = stats.size;
         const lastModified = stats.mtime;
 
-        console.log('Main process: File info retrieved:', { fileName, fileSize, lastModified });
         return {
             success: true,
             fileName,
@@ -200,7 +186,6 @@ ipcMain.handle('get-file-info', async (event, filePath) => {
 
 // Add handler for renderer to trigger file dialog
 ipcMain.handle('trigger-file-dialog', async (event) => {
-    console.log('Main process: File dialog requested by renderer');
     try {
         const result = await dialog.showOpenDialog(mainWindow, {
             properties: ['openFile'],
@@ -210,15 +195,11 @@ ipcMain.handle('trigger-file-dialog', async (event) => {
             ]
         });
 
-        console.log('Main process: File dialog result:', result);
-
         if (!result.canceled && result.filePaths.length > 0) {
             // Send the file path back to the renderer
-            console.log('Main process: Sending file-opened event with path:', result.filePaths[0]);
             mainWindow.webContents.send('file-opened', result.filePaths[0]);
             return { success: true, filePath: result.filePaths[0] };
         } else {
-            console.log('Main process: File dialog was canceled');
             return { success: false, canceled: true };
         }
     } catch (error) {
